@@ -1,0 +1,59 @@
+2013-...  Ongoing changes in git.
+2013-05-18: (there are ongoing changes in git, but these are notable features)
+	- Various state variable handling that should improve robustness and
+	   compatibility with various clients:
+		- Improved eventing of state variable changes.
+		- Active eventing of current track position (relative time)
+		- Subscription of a new client syncs all available variables.
+	- Provide a way to write a logfile with --logfile
+	- provide callbacks for user-hooks (scrobbling ? LCD display ?)
+
+2012-10-12: GMediaRender 0.0.7dev (Henner Zeller)
+	- Support get duration and position of current stream.
+	- Support basic commands:
+	    o Pause
+	    o Seek
+	- When we're finished with the current track, we go back to STOPPED,
+	  so that controllers will send us the next song.
+	- Initial code to support SetNextAVTransportURI, but still have to find
+	  a controller that supports it :)
+
+2007-11-07: GMediaRender 0.0.6
+	- Escape evented variables in subscription response
+	- Various code cleanups
+	- New command-line options:
+		--ip-address
+		--uuid
+		--friendly-name
+		--dump-devicedesc
+		--dump-connmgr-scpd
+		--dump-control-scpd
+		--dump-transport-scpd
+
+2007-11-05: GMediaRender 0.0.5
+	- BUG #16640: Rename inline 'min' function to avoid issues with 
+                      GCC 4.0.3 
+	- BUG #17887: Update to gstreamer-0.10
+                      Based on a patch contributed by David Siorpaes
+	- Fix compilation with libupnp-1.60, with largefile support
+	  (the libupnp branch from http://pupnp.sourceforge.net)
+	- Proper encoding of LastChange event in AVTransport service
+	- Add '--version', '--gstout-audiosink' and '--gstout-videosink'
+	  command-line options
+	- Look in datadir for icons
+	- Emit xmlns for XML root elements in device and service descriptors
+
+2006-03-27: GMediaRender 0.0.4
+	- Fix compilation with libupnp >= 0.3.1
+
+2005-09-02: GMediaRender 0.0.3
+	- Use autoconf and automake
+	- Generate device and service XML descriptions on the fly
+
+2005-09-01: GMediaRender 0.0.2
+	- Added binary files copyright and license notices to README
+	- Added copyright and license notice to static XML files
+
+2005-08-31: GMediaRender 0.0.1
+	- First preliminary release
+
