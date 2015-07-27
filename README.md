@@ -54,4 +54,4 @@ gmediarender -f sxx-wifi-audio
 
 ##完毕
 
-更多内容请关注[我的博客](transing.xyz)
+更多内容请关注[我的博客](http://transing.xyz)
