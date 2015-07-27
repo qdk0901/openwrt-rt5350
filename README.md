@@ -22,7 +22,7 @@ make -j8 V=s
 ###得到镜像如下
 ####其中openwrt-ramips-rt305x-sxx-u-boot.bin为uboot
 ####openwrt-ramips-rt305x-sxx-squashfs-sysupgrade.bin为linux
-![](http://transing.bj.bcebos.com/rt5350-images.JPG?responseContentDisposition=attachment
+![](http://transing.bj.bcebos.com/rt5350-images.JPG?responseContentDisposition=attachment)
 
 ##2.刷入镜像
 ####首先，需要刷入uboot，如果你的板已经烧录过uboot，可以用那个uboot的更新方式来更新本源码里的uboot，或者可以用烧录器，
@@ -53,3 +53,5 @@ gmediarender -f sxx-wifi-audio
 ![](http://transing.bj.bcebos.com/Screenshot_2015-07-27-22-35-42.png?responseContentDisposition=attachment)
 
 ##完毕
+
+更多内容请关注[我的博客](transing.xyz)
