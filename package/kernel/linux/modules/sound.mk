@@ -172,7 +172,7 @@ define KernelPackage/sound-soc-core
   DEPENDS:=+kmod-regmap +kmod-ac97
   KCONFIG:= \
 	CONFIG_SND_SOC \
-	CONFIG_SND_SOC_DMAENGINE_PCM=y \
+	CONFIG_SND_SOC_GENERIC_DMAENGINE_PCM \
 	CONFIG_SND_SOC_ALL_CODECS=n
   FILES:=$(LINUX_DIR)/sound/soc/snd-soc-core.ko
   AUTOLOAD:=$(call AutoLoad,55, snd-soc-core)

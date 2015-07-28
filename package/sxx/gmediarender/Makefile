@@ -21,13 +21,51 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/gmediarender
   SECTION:=sxx
   CATEGORY:=Sxx
-  DEPENDS:= +gstreamer +glib2 +libupnp +gst-mod-alsa +gst-mod-app +gst-mod-asf +gst-mod-audioconvert +gst-mod-audioparsers +gst-mod-audiorate +gst-mod-audioresample \
-            +gst-mod-audiotestsrc +gst-mod-autodetect +gst-mod-decodebin +gst-mod-decodebin2 +gst-mod-flac +gst-mod-gio +gst-mod-id3demux \
-            +gst-mod-mad +gst-mod-ogg +gst-mod-playbin +gst-mod-souphttpsrc +gst-mod-tcp +gst-mod-theora +gst-mod-typefindfunctions \
-            +gst-mod-udp +gst-mod-videotestsrc +gst-mod-volume +gst-mod-vorbis +gst-mod-wavparse +gst-plugins-base +gstreamer \
-            +libgstapp +libgstaudio +libgstcdda +libgstcheck +libgstcontroller +libgstdataprotocol +libgstfft +libgstinterfaces \
-            +libgstnet +libgstnetbuffer +libgstpbutils +libgstreamer +libgstriff +libgstrtp +libgstrtsp +libgstsdp +libgsttag \
-            +libgstvideo
+  DEPENDS:= +gstreamer +glib2 +libupnp \
+            +gst-mod-alsa \
+            +gst-mod-app \
+            +gst-mod-audioconvert \
+            +gst-mod-audioparsers \
+            +gst-mod-audiorate \
+            +gst-mod-audioresample \
+            +gst-mod-audiotestsrc \
+            +gst-mod-autodetect \
+            +gst-mod-decodebin \
+            +gst-mod-decodebin2 \
+            +gst-mod-flac \
+            +gst-mod-gio \
+            +gst-mod-icydemux \
+            +gst-mod-id3demux \
+            +gst-mod-isomp4 \
+            +gst-mod-mad \
+            +gst-mod-ogg \
+            +gst-mod-playbin \
+            +gst-mod-souphttpsrc \
+            +gst-mod-tcp \
+            +gst-mod-theora \
+            +gst-mod-typefindfunctions \
+            +gst-mod-volume \
+            +gst-mod-vorbis \
+            +gst-plugins-base \
+            +gstreamer \
+            +libgstapp \
+            +libgstaudio \
+            +libgstcdda \
+            +libgstcheck \
+            +libgstcontroller \
+            +libgstdataprotocol \
+            +libgstfft \
+            +libgstinterfaces \
+            +libgstnet \
+            +libgstnetbuffer \
+            +libgstpbutils \
+            +libgstreamer \
+            +libgstriff \
+            +libgstrtp \
+            +libgstrtsp \
+            +libgstsdp \
+            +libgsttag \
+            
   TITLE:=A Headless UPnP Renderer
 endef
 

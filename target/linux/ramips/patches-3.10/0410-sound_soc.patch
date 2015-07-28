@@ -1,0 +1,22 @@
+Index: linux-3.10.49/sound/soc/Kconfig
+===================================================================
+--- linux-3.10.49.orig/sound/soc/Kconfig	2015-07-28 15:00:54.451169211 +0800
++++ linux-3.10.49/sound/soc/Kconfig	2015-07-28 15:24:25.210727223 +0800
+@@ -27,11 +27,15 @@
+ 	bool
+ 
+ config SND_SOC_DMAENGINE_PCM
+-	bool
++	tristate
++    default m if SND_SOC=m
++    default y if SND_SOC=y
+ 
+ config SND_SOC_GENERIC_DMAENGINE_PCM
+-	bool
++	tristate
+ 	select SND_SOC_DMAENGINE_PCM
++    default m if SND_SOC=m
++    default y if SND_SOC=y
+ 
+ # All the supported SoCs
+ source "sound/soc/atmel/Kconfig"

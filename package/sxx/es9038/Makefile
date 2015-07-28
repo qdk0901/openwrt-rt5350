@@ -9,25 +9,25 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=wifi-audio
+PKG_NAME:=es9038
 PKG_VERSION:=2013-12-04
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
-define Package/wifi-audio
+define Package/es9038
   SECTION:= sxx
   CATEGORY:= Sxx
-  DEPENDS:= +gmediarender +kmod-usb-audio +kmod-usb-core +kmod-usb-ohci +kmod-usb-rt305x-dwc_otg +kmod-usb2 +kmod-rt5350-i2s
-  TITLE:= Wifi Audio for Sxx
+  DEPENDS:= 
+  TITLE:= Codec driver for es9038 on rt5350
 endef
 
-define Package/wifi-audio/description
-  Wifi Audio for Sxx
+define Package/es9038/description
+  Codec driver for es9038 on rt5350
 endef
 
-define Package/wifi-audio/install
+define Package/es9038/install
 endef
 
-$(eval $(call BuildPackage,wifi-audio))
+$(eval $(call KernelPackage,es9038))
