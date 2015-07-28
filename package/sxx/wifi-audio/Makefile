@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/wifi-audio
   SECTION:= sxx
   CATEGORY:= Sxx
-  DEPENDS:= +gmediarender +kmod-usb-audio +kmod-usb-core +kmod-usb-ohci +kmod-usb-rt305x-dwc_otg +kmod-usb2 +kmod-rt5350-i2s
+  DEPENDS:= +gmediarender +kmod-usb-audio +kmod-usb-core +kmod-usb-ohci +kmod-usb-rt305x-dwc_otg +kmod-usb2 +kmod-rt5350-i2s +kmod-ralink-dma
   TITLE:= Wifi Audio for Sxx
 endef
 

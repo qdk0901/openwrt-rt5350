@@ -97,4 +97,8 @@
 	ohci@101c1000 {
 		status = "okay";
 	};
+        
+    es9038-hifi {
+		compatible = "ralink,es9038-hifi";
+	};
 };

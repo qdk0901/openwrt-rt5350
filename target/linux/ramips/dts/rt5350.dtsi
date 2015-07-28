@@ -291,4 +291,38 @@
 		interrupt-parent = <&intc>;
 		interrupts = <18>;
 	};
+    
+    gdma: gdma@2800 {
+        compatible = "ralink,mt7620a-gdma", "ralink,rt2880-gdma";
+        reg = <0x2800 0x800>;
+
+        resets = <&rstctrl 14>;
+        reset-names = "dma";
+
+        interrupt-parent = <&intc>;
+        interrupts = <7>;
+
+        #dma-cells = <1>;
+        #dma-channels = <16>;
+        #dma-requests = <16>;
+
+        status = "disabled";
+    };
+    
+    i2s@a00 {
+        compatible = "ralink,mt7620a-i2s";
+        reg = <0xa00 0x100>;
+
+        resets = <&rstctrl 17>;
+        reset-names = "i2s";
+
+        interrupt-parent = <&intc>;
+        interrupts = <10>;
+
+        dmas = <&gdma 4>,
+            <&gdma 5>;
+        dma-names = "tx", "rx";
+
+        status = "disabled";
+    };
 };

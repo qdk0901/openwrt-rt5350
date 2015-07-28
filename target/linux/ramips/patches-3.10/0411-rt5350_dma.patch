@@ -1,0 +1,23 @@
+Index: linux-3.10.49/drivers/dma/Kconfig
+===================================================================
+--- linux-3.10.49.orig/drivers/dma/Kconfig	2015-07-27 12:49:29.908479811 +0800
++++ linux-3.10.49/drivers/dma/Kconfig	2015-07-28 22:16:12.615540473 +0800
+@@ -314,7 +314,7 @@
+ 
+ config DMA_RALINK
+ 	tristate "RALINK DMA support"
+-	depends on RALINK && SOC_MT7620
++	depends on RALINK && (SOC_MT7620 || SOC_RT305X)
+ 	select DMA_ENGINE
+ 	select DMA_VIRTUAL_CHANNELS
+ 
+Index: linux-3.10.49/drivers/dma/ralink-gdma.c
+===================================================================
+--- linux-3.10.49.orig/drivers/dma/ralink-gdma.c	2015-07-27 12:49:29.908479811 +0800
++++ linux-3.10.49/drivers/dma/ralink-gdma.c	2015-07-28 22:36:09.923490121 +0800
+@@ -574,4 +574,4 @@
+ 
+ MODULE_AUTHOR("Lars-Peter Clausen <lars@metafoo.de>");
+ MODULE_DESCRIPTION("GDMA4740 DMA driver");
+-MODULE_LICENSE("GPLv2");
++MODULE_LICENSE("GPL");

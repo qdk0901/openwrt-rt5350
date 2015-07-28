@@ -12,6 +12,7 @@
 #include <sound/pcm.h>
 #include <sound/initval.h>
 #include <sound/soc.h>
+#include <linux/of.h>
 
 /*
  * Note this is a simple chip with no configuration interface, sample rate is
@@ -35,6 +36,12 @@ static struct snd_soc_dai_driver es9038_dai[] = {
 
 static struct snd_soc_codec_driver soc_codec_dev_es9038;
 
+static const struct of_device_id es9038_match[] = {
+	{ .compatible = "ralink,es9038-hifi" },
+	{},
+};
+MODULE_DEVICE_TABLE(of, es9038_match);
+
 static int es9038_probe(struct platform_device *pdev)
 {
 	return snd_soc_register_codec(&pdev->dev,
@@ -51,6 +58,7 @@ static struct platform_driver es9038_codec_driver = {
 	.driver = {
 			.name = "es9038-hifi",
 			.owner = THIS_MODULE,
+            .of_match_table = es9038_match,
 	},
 
 	.probe = es9038_probe,
