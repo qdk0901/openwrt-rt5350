@@ -255,7 +255,7 @@ config wifi-device radio$devidx
 	option macaddr	$(cat /sys/class/net/${dev}/address)
 
 	# REMOVE THIS LINE TO ENABLE WIFI:
-	option disabled 1
+	# option disabled 1
 
 config wifi-iface
 	option device	radio$devidx

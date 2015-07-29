@@ -23,12 +23,11 @@
 
 
 static const struct snd_soc_dapm_widget rt5350_es9038_widgets[] = {
-	SND_SOC_DAPM_SPK("Speaker", NULL),
+
 };
 
 static const struct snd_soc_dapm_route rt5350_es9038_routes[] = {
-	{"Speaker", NULL, "HP_L"},
-	{"Speaker", NULL, "HP_R"},
+
 };
 
 #define RT5350_DAIFMT (SND_SOC_DAIFMT_I2S | \
@@ -42,9 +41,6 @@ static int rt5350_es9038_codec_init(struct snd_soc_pcm_runtime *rtd)
 	struct snd_soc_dapm_context *dapm = &codec->dapm;
 	int ret;
 
-	snd_soc_dapm_enable_pin(dapm, "HP_L");
-	snd_soc_dapm_enable_pin(dapm, "HP_R");
-
 	ret = snd_soc_dai_set_fmt(cpu_dai, RT5350_DAIFMT);
 	if (ret < 0) {
 		dev_err(codec->dev, "Failed to set cpu dai format: %d\n", ret);
@@ -55,8 +51,8 @@ static int rt5350_es9038_codec_init(struct snd_soc_pcm_runtime *rtd)
 }
 
 static struct snd_soc_dai_link rt5350_es9038_dai = {
-	.name = "mt7620",
-	.stream_name = "mt7620",
+	.name = "es9038-hifi",
+	.stream_name = "es9038-hifi-playback",
 	.init = rt5350_es9038_codec_init,
 	.codec_dai_name = "es9038-hifi",
 };
@@ -102,14 +98,14 @@ static int rt5350_es9038_remove(struct platform_device *pdev)
 }
 
 static const struct of_device_id rt5350_audio_match[] = {
-	{ .compatible = "ralink,es9038-audio" },
+	{ .compatible = "ralink,rt5350-es9038" },
 	{},
 };
 MODULE_DEVICE_TABLE(of, rt5350_audio_match);
 
 static struct platform_driver rt5350_es9038_driver = {
 	.driver		= {
-		.name	= "es9038-audio",
+		.name	= "rt5350-es9038",
 		.owner	= THIS_MODULE,
 		.of_match_table = rt5350_audio_match,
 	},

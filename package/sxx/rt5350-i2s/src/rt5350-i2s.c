@@ -369,7 +369,7 @@ static const struct snd_dmaengine_pcm_config mt7620_dmaengine_pcm_config = {
 };
 
 static const struct snd_soc_component_driver mt7620_i2s_component = {
-	.name = "mt7620-i2s",
+	.name = "rt5350-i2s",
 };
 
 static int mt7620_i2s_dev_probe(struct platform_device *pdev)
@@ -443,7 +443,7 @@ static int mt7620_i2s_dev_remove(struct platform_device *pdev)
 }
 
 static const struct of_device_id mt7620_i2s_match[] = {
-	{ .compatible = "ralink,mt7620a-i2s" },
+	{ .compatible = "ralink,rt5350-i2s" },
 	{},
 };
 MODULE_DEVICE_TABLE(of, mt7620_i2s_match);
@@ -452,7 +452,7 @@ static struct platform_driver mt7620_i2s_driver = {
 	.probe = mt7620_i2s_dev_probe,
 	.remove = mt7620_i2s_dev_remove,
 	.driver = {
-		.name = "mt7620-i2s",
+		.name = "rt5350-i2s",
 		.owner = THIS_MODULE,
 		.of_match_table = mt7620_i2s_match,
 	},

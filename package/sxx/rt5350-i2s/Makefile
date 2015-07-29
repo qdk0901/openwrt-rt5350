@@ -24,7 +24,7 @@ define KernelPackage/rt5350-i2s
     KCONFIG:=
         
     FILES:=$(PKG_BUILD_DIR)/*.$(LINUX_KMOD_SUFFIX)
-    AUTOLOAD:=$(call AutoLoad,50,rt5350-i2s rt5350-es9038 es9038-codec)
+    AUTOLOAD:=$(call AutoLoad,50,rt5350-i2s es9038-codec rt5350-es9038)
 endef
 
 define KernelPackage/rt5350-i2s/description

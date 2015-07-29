@@ -45,6 +45,14 @@
 				};
 			};
 		};
+        
+        i2s@a00 {
+            status = "okay";
+        };
+    
+        gdma@2800 {
+            status = "okay";
+        };
 	};
 
 	pinctrl {
@@ -97,8 +105,15 @@
 	ohci@101c1000 {
 		status = "okay";
 	};
-        
-    es9038-hifi {
+    
+    codec: es9038-hifi {
 		compatible = "ralink,es9038-hifi";
 	};
+    
+    sound {
+        compatible = "ralink,rt5350-es9038";
+        model = "rt5350-es9038";
+        cpu-dai = <&i2s>;
+        codec-dai = <&codec>;
+    };
 };

@@ -16,7 +16,7 @@ define KernelPackage/ralink-dma
     CONFIG_DMA_RALINK
   
   FILES:=$(LINUX_DIR)/drivers/dma/*.ko
-  AUTOLOAD:=$(call AutoProbe, dmaengine virt-dma ralink-gdma)
+  AUTOLOAD:=$(call AutoLoad,00,dmaengine virt-dma ralink-gdma)
 endef
 
 define KernelPackage/ralink-dma/description

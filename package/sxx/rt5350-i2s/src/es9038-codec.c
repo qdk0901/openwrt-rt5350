@@ -23,9 +23,9 @@
 
 static struct snd_soc_dai_driver es9038_dai[] = {
 	{
-		.name = "es9038-hifi-playback",
+		.name = "es9038-hifi",
 		.playback = {
-			.stream_name = "Playback",
+			.stream_name = "es9038-hifi-playback",
 			.channels_min = 1,
 			.channels_max = 2,
 			.rates = ES9038_RATES,
