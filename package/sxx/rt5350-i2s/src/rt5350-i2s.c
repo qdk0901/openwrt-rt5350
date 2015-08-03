@@ -202,6 +202,7 @@ unsigned long i2sMaster_inclk_int[11] = {
 unsigned long i2sMaster_inclk_comp[11] = {
 	64,     352,    42,     32,     176,    21,     272,    88,     10,     455,    261};
 
+//FreqOut = FreqIn *(1/2) *{1 / [DIVINT+DIVCOMP/(512)]}
 
 static int mt7620_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
 	unsigned int freq, int dir)

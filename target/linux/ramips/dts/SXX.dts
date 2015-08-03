@@ -58,9 +58,13 @@
 	pinctrl {
 		state_default: pinctrl0 {
 			gpio {
-				ralink,group = "i2c", "jtag", "uartf";
+				ralink,group = "i2c", "jtag";
 				ralink,function = "gpio";
 			};
+            uartf {
+                ralink,group = "uartf";
+                ralink,function = "i2s uartf";
+            };
 		};
 	};
 
@@ -78,18 +82,6 @@
 		power {
 			label = "x8:green:power";
 			gpios = <&gpio0 13 1>;
-		};
-	};
-
-	gpio-keys-polled {
-		compatible = "gpio-keys-polled";
-		#address-cells = <1>;
-		#size-cells = <0>;
-		poll-interval = <20>;
-		reset {
-			label = "reset";
-			gpios = <&gpio0 10 1>;
-			linux,code = <0x198>;
 		};
 	};
 
