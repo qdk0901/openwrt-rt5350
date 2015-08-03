@@ -41,6 +41,8 @@ run ll
 ##3.测试wifi audio
 ###接入usb声卡，如下图
 ![](http://transing.bj.bcebos.com/IMG_20150727_222954.jpg?responseContentDisposition=attachment)
+###i2s声卡测试，如下图
+![](http://transing.bj.bcebos.com/rt5350-i2s.jpg?responseContentDisposition=attachment)
 ###正常的话，/dev/snd下应该有如下设备
 ![](http://transing.bj.bcebos.com/rt5350-wifi-audio.JPG?responseContentDisposition=attachment)
 ###执行如下命令
