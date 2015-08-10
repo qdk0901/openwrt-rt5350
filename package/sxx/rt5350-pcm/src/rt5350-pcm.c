@@ -32,29 +32,6 @@
 
 #include <ralink_regs.h>
 
-#define I2S_REG_CFG0		0x00
-#define I2S_REG_CFG0_EN		BIT(31)
-#define I2S_REG_CFG0_DMA_EN	BIT(30)
-#define I2S_REG_CFG0_BYTE_SWAP	BIT(28)
-#define I2S_REG_CFG0_TX_EN	BIT(24)
-#define I2S_REG_CFG0_RX_EN	BIT(20)
-#define I2S_REG_CFG0_SLAVE	BIT(16)
-#define I2S_REG_CFG0_RX_THRES	12
-#define I2S_REG_CFG0_TX_THRES	4
-#define I2S_REG_CFG0_DFT_THRES	(4 << I2S_REG_CFG0_RX_THRES) | \
-					(4 << I2S_REG_CFG0_TX_THRES)
-
-#define I2S_REG_INT_STATUS	0x04
-#define I2S_REG_INT_EN		0x08
-#define I2S_REG_FF_STATUS	0x0c
-#define I2S_REG_WREG		0x10
-#define I2S_REG_RREG		0x14
-#define I2S_REG_CFG1		0x18
-
-#define I2S_REG_DIVCMP		0x20
-#define I2S_REG_DIVINT		0x24
-#define I2S_REG_CLK_EN		BIT(31)
-
 #define PCM_GLB_CFG 0x00
 #define PCM_GLB_CFG_EN BIT(31)
 #define PCM_GLB_CFG_DMA_EN BIT(30)
