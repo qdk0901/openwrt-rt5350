@@ -168,10 +168,12 @@ static int rt5350_pcm_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
 
 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
 	case SND_SOC_DAIFMT_CBS_CFS:
-		cfg &= ~(PCM_PCM_CFG_CLKOUT_EN | PCM_PCM_CFG_EXT_FSYNC); // pcm clock and pcm sync from external
+		cfg &= ~PCM_PCM_CFG_CLKOUT_EN; // pcm clock from external
+        cfg |= PCM_PCM_CFG_EXT_FSYNC; // pcm sync from external
 		break;
 	case SND_SOC_DAIFMT_CBM_CFM:
-		cfg |= (PCM_PCM_CFG_CLKOUT_EN | PCM_PCM_CFG_EXT_FSYNC);
+		cfg |= PCM_PCM_CFG_CLKOUT_EN; // pcm clock from internal
+        cfg &= ~PCM_PCM_CFG_EXT_FSYNC; // pcm sync from internal
 		break;
 	case SND_SOC_DAIFMT_CBM_CFS:
 	default:
@@ -189,6 +191,8 @@ static int rt5350_pcm_hw_params(struct snd_pcm_substream *substream,
 	return 0;
 }
 
+#define PCMCLOCK_OUT 0 // 256KHz
+
 unsigned long i2sMaster_inclk_int[11] = {
 	78,     56,     52,     39,     28,     26,     19,     14,     13,     9,      6};
 unsigned long i2sMaster_inclk_comp[11] = {
@@ -203,9 +207,11 @@ static int rt5350_pcm_set_sysclk(struct snd_soc_dai *dai, int clk_id,
 
 	printk("Internal REFCLK with fractional division\n");
 
-    //maybe no use when in slave mode
-	rt5350_pcm_write(pcm, PCM_DIVINT_CFG, i2sMaster_inclk_int[7]);
-	rt5350_pcm_write(pcm, PCM_DIVCOMP_CFG, i2sMaster_inclk_comp[7] | PCM_DIVCOMP_CFG_CLK_EN);
+    //When using the external clock, the frequency clock
+    //should be equal to the PCM_clock out. Otherwise, the
+    //PCM_CLKin should be 8.192 MHz.
+	rt5350_pcm_write(pcm, PCM_DIVINT_CFG, i2sMaster_inclk_int[PCMCLOCK_OUT]);
+	rt5350_pcm_write(pcm, PCM_DIVCOMP_CFG, i2sMaster_inclk_comp[PCMCLOCK_OUT] | PCM_DIVCOMP_CFG_CLK_EN);
 	return 0;
 }
 
@@ -244,13 +250,13 @@ static void rt5350_init_pcm_config(struct rt5350_pcm *pcm)
 	/* Playback */
 	dma_data = &pcm->playback_dma_data;
 	dma_data->maxburst = 16;
-	dma_data->slave_id = 2;
+	dma_data->slave_id = 6;
 	dma_data->addr = pcm->phys_base + PCM_CH0_FIFO; //only use channel 0
 
 	/* Capture */
 	dma_data = &pcm->capture_dma_data;
 	dma_data->maxburst = 16;
-	dma_data->slave_id = 3;
+	dma_data->slave_id = 4;
 	dma_data->addr = pcm->phys_base + PCM_CH0_FIFO;
 }
 
@@ -264,7 +270,7 @@ static int rt5350_pcm_dai_probe(struct snd_soc_dai *dai)
 	dai->capture_dma_data = &pcm->capture_dma_data;
 
 	printk("Internal REFCLK with fractional division\n");
-
+    
 	rt5350_pcm_write(pcm, PCM_GLB_CFG, PCM_GLB_CFG_DFT_THRES);
 	rt5350_pcm_write(pcm, PCM_INT_EN, 0);
     
@@ -273,9 +279,9 @@ static int rt5350_pcm_dai_probe(struct snd_soc_dai *dai)
     cfg &= ~PCM_PCM_CFG_LONG_FSYNC; //short sync mode
     cfg |= PCM_PCM_CFG_FSYNC_POL; // sync high active
     
-    //slot mode, pcm clock = 2.048M
+    //slot mode, pcm clock = 256KHz
     cfg &= ~(0x07);
-    cfg |= 3; // 32 slots
+    cfg = 0; // 4 slots
    
 	rt5350_pcm_write(pcm, PCM_PCM_CFG, cfg);
     
@@ -285,10 +291,11 @@ static int rt5350_pcm_dai_probe(struct snd_soc_dai *dai)
     
     rt5350_pcm_write(pcm, PCM_FSYNC_CFG, cfg);
     
-    //////////// clock, maybe no use when in slave mode
-
-	rt5350_pcm_write(pcm, I2S_REG_DIVINT, i2sMaster_inclk_int[7]);
-	rt5350_pcm_write(pcm, I2S_REG_DIVCMP, i2sMaster_inclk_comp[7] | PCM_DIVCOMP_CFG_CLK_EN);
+    //When using the external clock, the frequency clock
+    //should be equal to the PCM_clock out. Otherwise, the
+    //PCM_CLKin should be 8.192 MHz.
+	rt5350_pcm_write(pcm, PCM_DIVINT_CFG, i2sMaster_inclk_int[PCMCLOCK_OUT]);
+	rt5350_pcm_write(pcm, PCM_DIVCOMP_CFG, i2sMaster_inclk_comp[PCMCLOCK_OUT] | PCM_DIVCOMP_CFG_CLK_EN);
 
 	return 0;
 }

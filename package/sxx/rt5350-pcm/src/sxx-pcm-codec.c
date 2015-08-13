@@ -18,7 +18,7 @@
  * Note this is a simple chip with no configuration interface, sample rate is
  * determined automatically by examining the Master clock and Bit clock ratios
  */
-#define SXX_PCM_RATES  (SNDRV_PCM_RATE_44100)
+#define SXX_PCM_RATES  (SNDRV_PCM_RATE_8000)
 
 
 static struct snd_soc_dai_driver sxx_pcm_codec_dai[] = {
@@ -29,7 +29,7 @@ static struct snd_soc_dai_driver sxx_pcm_codec_dai[] = {
 			.channels_min = 1,
 			.channels_max = 2,
 			.rates = SXX_PCM_RATES,
-			.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
 		},
 	},
 };

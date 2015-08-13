@@ -20,7 +20,7 @@ define KernelPackage/rt5350-pcm
     TITLE:= PCM on rt5350
     SECTION:= sxx
     CATEGORY:= Sxx
-    DEPENDS:= +kmod-sound-soc-core
+    DEPENDS:= kmod-sound-core +kmod-sound-soc-core +kmod-ralink-dma
     KCONFIG:=
         
     FILES:=$(PKG_BUILD_DIR)/*.$(LINUX_KMOD_SUFFIX)
