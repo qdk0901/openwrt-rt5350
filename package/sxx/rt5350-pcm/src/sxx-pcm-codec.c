@@ -31,6 +31,13 @@ static struct snd_soc_dai_driver sxx_pcm_codec_dai[] = {
 			.rates = SXX_PCM_RATES,
 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
 		},
+        .capture = {
+            .stream_name = "sxx-pcm-codec-capture",
+            .channels_min = 1,
+            .channels_max = 2,
+            .rates = SXX_PCM_RATES,
+            .formats = SNDRV_PCM_FMTBIT_S16_LE,
+        },
 	},
 };
 

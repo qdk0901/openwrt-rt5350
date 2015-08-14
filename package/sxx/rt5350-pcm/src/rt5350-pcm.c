@@ -344,7 +344,7 @@ static const struct snd_pcm_hardware mt7620_pcm_hardware = {
 		SNDRV_PCM_INFO_INTERLEAVED |
 		SNDRV_PCM_INFO_BLOCK_TRANSFER,
 	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8,
-	.period_bytes_min	= PAGE_SIZE,
+	.period_bytes_min	= 128,//PAGE_SIZE,
 	.period_bytes_max	= 64 * 1024,
 	.periods_min		= 2,
 	.periods_max		= 128,

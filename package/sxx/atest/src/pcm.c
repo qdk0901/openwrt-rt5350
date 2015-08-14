@@ -620,6 +620,8 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
         return &bad_pcm; /* TODO: could support default config here */
 
     pcm->config = *config;
+    
+    printf("%d %d\n", config->period_count, config->period_size);
 
     snprintf(fn, sizeof(fn), "/dev/snd/pcmC%uD%u%c", card, device,
              flags & PCM_IN ? 'c' : 'p');
@@ -678,7 +680,7 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
     config->period_size = param_get_int(&params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE);
     config->period_count = param_get_int(&params, SNDRV_PCM_HW_PARAM_PERIODS);
     pcm->buffer_size = config->period_count * config->period_size;
-
+    
     if (flags & PCM_MMAP) {
         pcm->mmap_buffer = mmap(NULL, pcm_frames_to_bytes(pcm, pcm->buffer_size),
                                 PROT_READ | PROT_WRITE, MAP_FILE | MAP_SHARED, pcm->fd, 0);

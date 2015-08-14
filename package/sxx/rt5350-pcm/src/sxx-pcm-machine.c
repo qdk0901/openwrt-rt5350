@@ -61,7 +61,7 @@ static struct snd_soc_ops sxx_pcm_machine_ops = {
 
 static struct snd_soc_dai_link sxx_pcm_machine_dai = {
 	.name = "sxx-pcm-machine",
-	.stream_name = "sxx-pcm-codec-playback",
+	.stream_name = "sxx-pcm-stream",
     .ops = &sxx_pcm_machine_ops,
 	.init = sxx_pcm_machine_init,
 	.codec_dai_name = "sxx-pcm-codec",
