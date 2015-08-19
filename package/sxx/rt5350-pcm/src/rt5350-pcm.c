@@ -276,7 +276,8 @@ static int rt5350_pcm_dai_probe(struct snd_soc_dai *dai)
     
     ///////////// pcm general config
     cfg = rt5350_pcm_read(pcm, PCM_FSYNC_CFG);
-    cfg &= ~PCM_PCM_CFG_LONG_FSYNC; //short sync mode
+    //cfg &= ~PCM_PCM_CFG_LONG_FSYNC; //short sync mode
+    cfg |= PCM_PCM_CFG_LONG_FSYNC; //long sync mode
     cfg |= PCM_PCM_CFG_FSYNC_POL; // sync high active
     
     //slot mode, pcm clock = 256KHz
