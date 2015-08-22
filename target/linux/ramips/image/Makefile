@@ -571,7 +571,7 @@ BuildFirmware/SXX8M/squashfs=$(call BuildFirmware/SXXOF/$(1),$(1),$(2),$(3),$(ra
 Image/Build/Profile/SXX8M=$(call BuildFirmware/SXX8M/$(1),$(1),sxx-8m,SXX)
 
 BuildFirmware/SXX16M/squashfs=$(call BuildFirmware/SXXOF/$(1),$(1),$(2),$(3),$(ralink_default_fw_size_16M),$(4))
-Image/Build/Profile/SXX16M=$(call BuildFirmware/SXX16M/$(1),$(1),sxx-16m,SXX)
+Image/Build/Profile/SXX16M=$(call BuildFirmware/SXX16M/$(1),$(1),sxx-16m,SXX16M)
 
 ifeq ($(SUBTARGET),rt305x)
 define Image/Build/Profile/Default

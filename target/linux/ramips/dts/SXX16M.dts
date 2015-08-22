@@ -1,0 +1,130 @@
+/dts-v1/;
+
+/include/ "rt5350.dtsi"
+
+/ {
+	compatible = "SXX", "ralink,rt5350-soc";
+	model = "SXX";
+
+	chosen {
+		bootargs = "console=ttyS0,115200";
+	};
+	
+	palmbus@10000000 {
+		spi@b00 {
+			status = "okay";
+			m25p80@0 {
+				#address-cells = <1>;
+				#size-cells = <1>;
+				compatible = "gd25q64";
+				reg = <0 0>;
+				linux,modalias = "m25p80", "gd25q64";
+				spi-max-frequency = <10000000>;
+
+				partition@0 {
+					label = "u-boot";
+					reg = <0x0 0x30000>;
+					read-only;
+				};
+
+				partition@30000 {
+					label = "u-boot-env";
+					reg = <0x30000 0x10000>;
+					read-only;
+				};
+
+				factory: partition@40000 {
+					label = "factory";
+					reg = <0x40000 0x10000>;
+					read-only;
+				};
+
+				partition@50000 {
+					label = "firmware";
+					reg = <0x50000 0xfb0000>;
+				};
+			};
+		};
+        
+        /*
+        i2s@a00 {
+            status = "okay";
+        };
+        */
+        
+        pcm@2000 {
+            status = "okay";
+        };
+    
+        gdma@2800 {
+            status = "okay";
+        };
+	};
+
+	pinctrl {
+		state_default: pinctrl0 {
+			gpio {
+				ralink,group = "i2c", "jtag";
+				ralink,function = "gpio";
+			};
+            uartf {
+                ralink,group = "uartf";
+                ralink,function = "pcm uartf";
+            };
+		};
+	};
+
+	ethernet@10100000 {
+		mtd-mac-address = <&factory 0x4>;
+	};
+
+	esw@10110000 {
+		ralink,portmap = <0x2f>;
+		ralink,led_polarity = <1>;
+	};
+
+	gpio-leds {
+		compatible = "gpio-leds";
+		power {
+			label = "x8:green:power";
+			gpios = <&gpio0 13 1>;
+		};
+	};
+
+	wmac@10180000 {
+		ralink,mtd-eeprom = <&factory 0>;
+		ralink,led-polarity = <1>;
+	};
+
+	ehci@101c0000 {
+		status = "okay";
+	};
+
+	ohci@101c1000 {
+		status = "okay";
+	};
+    
+    /*
+    codec: es9038-hifi {
+		compatible = "ralink,es9038-hifi";
+	};
+    
+    sound {
+        compatible = "ralink,rt5350-es9038";
+        model = "rt5350-es9038";
+        cpu-dai = <&i2s>;
+        codec-dai = <&codec>;
+    };
+    */
+    
+    codec: sxx-pcm-codec {
+		compatible = "ralink,sxx-pcm-codec";
+	};
+    
+    sound: sxx-pcm-machine {
+        compatible = "ralink,sxx-pcm-machine";
+        model = "sxx-pcm-machine";
+        cpu-dai = <&pcm>;
+        codec-dai = <&codec>;
+    };
+};
