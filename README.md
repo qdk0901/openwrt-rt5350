@@ -4,8 +4,8 @@ git clone https://github.com/qdk0901/openwrt-rt5350.git
 ```
 ###更新feeds
 ```
-./script/feeds update -a
-./script/feeds install -a
+./scripts/feeds update -a
+./scripts/feeds install -a
 ```
 ###选择目标板
 ![](http://transing.bj.bcebos.com/rt5350-menuconfig.JPG)
