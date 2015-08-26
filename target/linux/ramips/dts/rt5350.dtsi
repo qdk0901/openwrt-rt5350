@@ -224,8 +224,8 @@
             status = "disabled";
         };
         
-        pcm@2000 {
-			compatible = "ralink,mt7620a-pcm";
+        pcm: pcm@2000 {
+			compatible = "ralink,rt5350-pcm";
 			reg = <0x2000 0x800>;
 
 			resets = <&rstctrl 11>;
@@ -233,6 +233,10 @@
 
 			interrupt-parent = <&intc>;
 			interrupts = <4>;
+            
+            dmas = <&gdma 4>,
+                <&gdma 5>;
+            dma-names = "tx", "rx";
 
 			status = "disabled";
 		};

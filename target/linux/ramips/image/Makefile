@@ -558,7 +558,7 @@ Image/Build/Profile/X8=$(call BuildFirmware/Poray8M/$(1),$(1),x8,X8)
 
 Image/Build/Profile/XDXRN502J=$(call BuildFirmware/Default4M/$(1),$(1),xdxrn502j,XDXRN502J)
 
-define BuildFirmware/SXXOF
+define BuildFirmware/SXXOF/squashfs
 	$(call PatchKernelLzmaDtb,$(2),$(3),$(5))
 	dd if=$(KDIR)/vmlinux-$(2).bin.lzma of=$(KDIR)/vmlinux-$(2).bin.lzma.padded bs=1441728 conv=sync
 	mv $(KDIR)/vmlinux-$(2).bin.lzma.padded $(KDIR)/vmlinux-$(2).bin.lzma
@@ -566,13 +566,17 @@ define BuildFirmware/SXXOF
 	$(call MkImageSysupgrade/$(1),$(1),$(2),$(4),$(6))
 endef
 
-BuildFirmware/SXX8M/squashfs=$(call BuildFirmware/SXXOF,$(1),$(2),$(3),$(ralink_default_fw_size_8M),$(4))
 
-Image/Build/Profile/SXX=$(call BuildFirmware/SXX8M/$(1),$(1),sxx,SXX)
+BuildFirmware/SXX8M/squashfs=$(call BuildFirmware/SXXOF/$(1),$(1),$(2),$(3),$(ralink_default_fw_size_8M),$(4))
+Image/Build/Profile/SXX8M=$(call BuildFirmware/SXX8M/$(1),$(1),sxx-8m,SXX)
+
+BuildFirmware/SXX16M/squashfs=$(call BuildFirmware/SXXOF/$(1),$(1),$(2),$(3),$(ralink_default_fw_size_16M),$(4))
+Image/Build/Profile/SXX16M=$(call BuildFirmware/SXX16M/$(1),$(1),sxx-16m,SXX16M)
 
 ifeq ($(SUBTARGET),rt305x)
 define Image/Build/Profile/Default
-	$(call Image/Build/Profile/SXX,$(1))
+	$(call Image/Build/Profile/SXX8M,$(1))
+	$(call Image/Build/Profile/SXX16M,$(1))
 endef
 endif
 

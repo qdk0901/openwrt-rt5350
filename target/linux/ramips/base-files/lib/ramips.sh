@@ -334,6 +334,9 @@ ramips_board_detect() {
 	*"Lenovo Y1S")
 		name="y1s"
 		;;
+    *"SXX")
+		name="sxx"
+		;;
 	*)
 		name="generic"
 		;;

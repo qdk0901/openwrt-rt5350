@@ -619,7 +619,9 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
     if (!pcm || !config)
         return &bad_pcm; /* TODO: could support default config here */
 
-    pcm->config = *config;
+    pcm->config = *config; 
+    printf("%d %d\n", config->period_count, config->period_size);
+
 
     snprintf(fn, sizeof(fn), "/dev/snd/pcmC%uD%u%c", card, device,
              flags & PCM_IN ? 'c' : 'p');

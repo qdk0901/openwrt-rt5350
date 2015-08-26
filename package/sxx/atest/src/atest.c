@@ -59,50 +59,114 @@ void generate_sine(int freq, int volume)
     }
 }
 
-int atest()
+
+void pcm_init_config(struct pcm_config* config)
 {
-    struct pcm_config config;
-    struct pcm *pcm_out;
+    unsigned int channels = 2;
+    unsigned int rate = SAMPLE_RATE;
+    unsigned int bits = 16;
+    unsigned int period_size = 128;
+    unsigned int period_count = 2;
+    
+    config->channels = channels;
+    config->rate = rate;
+    config->period_size = period_size;
+    config->period_count = period_count;
+    config->format = PCM_FORMAT_S16_LE;
+    config->start_threshold = 0;
+    config->stop_threshold = 0;
+    config->silence_threshold = 0;   
+}
+
+struct pcm* get_pcm_out()
+{
     unsigned int card = 0;
     unsigned int device = 0;
-    unsigned int channels = 2;
-    unsigned int rate = 44100;
-    unsigned int bits = 16;
-    unsigned int period_size = 1024;
-    unsigned int period_count = 4;
     
-    config.channels = channels;
-    config.rate = rate;
-    config.period_size = period_size;
-    config.period_count = period_count;
-    config.format = PCM_FORMAT_S16_LE;
-    config.start_threshold = 0;
-    config.stop_threshold = 0;
-    config.silence_threshold = 0;
-       
+    struct pcm_config config;
+    struct pcm *pcm_out;
+
+    pcm_init_config(&config);
+    
     pcm_out = pcm_open(card, device, PCM_OUT, &config);
    	if (!pcm_out || !pcm_is_ready(pcm_out)) {
         printf("Unable to open PCM device %u (%s)\n",
                 device, pcm_get_error(pcm_out));
-        return 0;
+        return NULL;
     }
-       
+    
+    return pcm_out;
+}
+
+struct pcm* get_pcm_in()
+{
+    unsigned int card = 0;
+    unsigned int device = 0;
+    
+    struct pcm_config config;
+    struct pcm *pcm_in;
+
+    pcm_init_config(&config);
+    
+    pcm_in = pcm_open(card, device, PCM_IN, &config);
+   	if (!pcm_in || !pcm_is_ready(pcm_in)) {
+        printf("Unable to open PCM device %u (%s)\n",
+                device, pcm_get_error(pcm_in));
+        return NULL;
+    }
+    
+    return pcm_in;
+}
+
+int play()
+{
+    struct pcm *pcm_out = get_pcm_out();
+    
     generate_sine(2000, 10000);
     
     while (1) {
         if (!pcm_write(pcm_out, buffer, BUFFER_SIZE)) {
             //printf("sucess in to out: %d\n", BUFFER_SIZE);	
         } else {
+            printf("failed\n");
             break;
         }
     }
     
     return 0;
 }
+
+void loopback()
+{
+    struct pcm *pcm_out = get_pcm_out();
+    struct pcm *pcm_in = get_pcm_in();
+    unsigned char buff[128];
+    
+    if (!pcm_out || !pcm_in)
+        return;
+    
+    printf("buffer size:%d %d\n", pcm_get_buffer_size(pcm_out), pcm_get_buffer_size(pcm_in));
+    
+    while(1) {
+        int ret = pcm_read(pcm_in, buff, sizeof(buff)); 
+        if (!ret) {
+       		if (!pcm_write(pcm_out, buff, sizeof(buff))) {
+       			//printf("sucess in to out: %d\n", sizeof(buff));	
+       		} else {
+       			break;
+       		}
+       	} else {
+            break;
+        }
+    }
+    
+    printf("exit!\n");
+}
+
 int main()
 {
-    
-    atest();
+    //play();
+    loopback();
     return 0;
 }
 
