@@ -69,7 +69,7 @@
 			};
             uartf {
                 ralink,group = "uartf";
-                ralink,function = "pcm uartf";
+                ralink,function = "i2s uartf";
             };
 		};
 	};
