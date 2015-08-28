@@ -7,7 +7,7 @@
 	model = "SXX";
 
 	chosen {
-		bootargs = "console=ttyS0,115200";
+		bootargs = "console=ttyS1,115200";
 	};
 	
 	palmbus@10000000 {
@@ -57,6 +57,10 @@
         };
     
         gdma@2800 {
+            status = "okay";
+        };
+        
+        uart@500 {
             status = "okay";
         };
 	};
