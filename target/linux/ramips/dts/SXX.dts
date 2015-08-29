@@ -46,15 +46,16 @@
 			};
 		};
         
-        /*
+        
         i2s@a00 {
             status = "okay";
         };
-        */
         
+        /*
         pcm@2000 {
             status = "okay";
         };
+	*/
     
         gdma@2800 {
             status = "okay";
@@ -104,7 +105,7 @@
 		status = "okay";
 	};
     
-    /*
+    
     codec: es9038-hifi {
 		compatible = "ralink,es9038-hifi";
 	};
@@ -115,8 +116,8 @@
         cpu-dai = <&i2s>;
         codec-dai = <&codec>;
     };
-    */
     
+ /*   
     codec: sxx-pcm-codec {
 		compatible = "ralink,sxx-pcm-codec";
 	};
@@ -127,4 +128,5 @@
         cpu-dai = <&pcm>;
         codec-dai = <&codec>;
     };
+*/
 };
