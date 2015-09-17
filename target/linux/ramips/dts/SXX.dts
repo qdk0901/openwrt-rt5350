@@ -44,7 +44,15 @@
 					reg = <0x50000 0x7b0000>;
 				};
 			};
+			
+			spidev@1 {
+				compatible = "linux,spidev";
+				spi-max-frequency = <10000000>;
+				reg = <1>;
+			};
 		};
+        
+
         
         
         i2s@a00 {
