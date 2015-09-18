@@ -43,18 +43,30 @@
 					label = "firmware";
 					reg = <0x50000 0x7b0000>;
 				};
-			};
-			
-			spidev@1 {
-				compatible = "linux,spidev";
-				spi-max-frequency = <10000000>;
-				reg = <1>;
-			};
+			};			
+
 		};
         
 
-        
-        
+                spi {
+		        #address-cells = <1>;
+		        #size-cells = <1>;
+
+		        compatible = "spi-gpio";
+
+		        gpio-miso = <&gpio0 11 0>;
+		        gpio-mosi = <&gpio0 12 0>;
+		        gpio-sck = <&gpio0 13 0>;
+		        num-chipselects = <1>;
+		        cs-gpios = <&gpio0 14 1>;
+
+			spidev@0 {
+				compatible = "linux,spidev";
+				spi-max-frequency = <10000000>;
+				reg = <0>;
+			};
+        	};
+
         i2s@a00 {
             status = "okay";
         };
@@ -76,10 +88,10 @@
 				ralink,group = "i2c", "jtag";
 				ralink,function = "gpio";
 			};
-            uartf {
-                ralink,group = "uartf";
-                ralink,function = "i2s uartf";
-            };
+			uartf {
+				ralink,group = "uartf";
+				ralink,function = "gpio i2s";
+			};
 		};
 	};
 
@@ -92,6 +104,7 @@
 		ralink,led_polarity = <1>;
 	};
 
+	/*
 	gpio-leds {
 		compatible = "gpio-leds";
 		power {
@@ -99,6 +112,7 @@
 			gpios = <&gpio0 13 1>;
 		};
 	};
+	*/
 
 	wmac@10180000 {
 		ralink,mtd-eeprom = <&factory 0>;

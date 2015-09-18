@@ -17,7 +17,7 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/libspi
   SECTION:=sxx
   CATEGORY:=Sxx
-  DEPENDS:= +kmod-spi-dev
+  DEPENDS:= +kmod-spi-dev +kmod-spi-gpio
   TITLE:=spi lib for dsp
 endef
 

@@ -8,7 +8,7 @@
 #include "spidev.h"
 #include "libspi.h"
 
-#define DSPIF_PATH	"/dev/spidev32766.1"
+#define DSPIF_PATH	"/dev/spidev32765.0"
 #define MAX_SPEED	1000000
 #define SPI_MODE	SPI_MODE_3
 #define BITS_PER_WORD	16
