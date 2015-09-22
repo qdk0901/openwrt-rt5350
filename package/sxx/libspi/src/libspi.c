@@ -95,7 +95,7 @@ static int _libspi_read(int fd, unsigned short reg, unsigned short* dat)
 		printf("spi read failed: %s\n", strerror(errno));
 	}
 
-	printf("read[%04x] %04x %04x %04x\n\n", reg, dat[0], dat[1], dat[2]);
+	//printf("read[%04x] %04x %04x %04x\n\n", reg, dat[0], dat[1], dat[2]);
 	return ret;
 }
 
@@ -114,7 +114,7 @@ static int _libspi_write(int fd, unsigned short reg, unsigned short* dat)
 	int ret;
 	// cmd[16bits] data[16bits] data[16bits] data[16bits]
 
-	printf("write[%04x] %04x %04x %04x\n", reg, dat[0], dat[1], dat[2]);
+	//printf("write[%04x] %04x %04x %04x\n", reg, dat[0], dat[1], dat[2]);
 
 	struct spi_ioc_transfer t[4] = {
 		{
@@ -161,7 +161,6 @@ static int _libspi_write(int fd, unsigned short reg, unsigned short* dat)
 		printf("spi read failed: %s\n", strerror(errno));
 	}
 
-	_libspi_read(fd, reg | 0x8000, dat);
 	return ret;
 }
 

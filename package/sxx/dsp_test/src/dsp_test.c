@@ -2,6 +2,7 @@
 
 int main()
 {
+	/*
 	unsigned short reg;
 	unsigned short dat[3];
 	int fd = libspi_init();
@@ -27,7 +28,7 @@ int main()
 	dat[2] = 0x0008;
 	
 	sxx_libspi_write(fd, reg, dat);
-	
+	*/
 	int ret = libdsp_init();
 	
 	printf("dsp init ret: %d\n", ret);
