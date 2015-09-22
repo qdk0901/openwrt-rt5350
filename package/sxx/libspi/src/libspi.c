@@ -41,13 +41,12 @@ int libspi_init()
 	return fd;
 }
 
-int libspi_read(int fd, unsigned short reg, unsigned short* dat)
+
+static int _libspi_read(int fd, unsigned short reg, unsigned short* dat)
 {
 	int ret;
 	// cmd[16bits] data[16bits] data[16bits] data[16bits]
 	dat[0] = dat[1] = dat[2] = 0;
-
-	reg = (reg << 1) | 0x8000;
 
 	struct spi_ioc_transfer t[4] = {
 		{
@@ -96,14 +95,26 @@ int libspi_read(int fd, unsigned short reg, unsigned short* dat)
 		printf("spi read failed: %s\n", strerror(errno));
 	}
 
+	printf("read[%04x] %04x %04x %04x\n\n", reg, dat[0], dat[1], dat[2]);
 	return ret;
 }
 
-int libspi_write(int fd, unsigned short reg, unsigned short* dat)
+int libspi_read(int fd, unsigned short reg, unsigned short* dat)
+{
+	return _libspi_read(fd, reg, dat);
+}
+
+int sxx_libspi_read(int fd, unsigned short reg, unsigned short* dat)
+{
+	return _libspi_read(fd, (reg << 1) | 0x8000, dat);
+}
+
+static int _libspi_write(int fd, unsigned short reg, unsigned short* dat)
 {
 	int ret;
 	// cmd[16bits] data[16bits] data[16bits] data[16bits]
-	reg = reg << 1;
+
+	printf("write[%04x] %04x %04x %04x\n", reg, dat[0], dat[1], dat[2]);
 
 	struct spi_ioc_transfer t[4] = {
 		{
@@ -149,7 +160,19 @@ int libspi_write(int fd, unsigned short reg, unsigned short* dat)
 	if (ret < 0) {
 		printf("spi read failed: %s\n", strerror(errno));
 	}
+
+	_libspi_read(fd, reg | 0x8000, dat);
 	return ret;
+}
+
+int libspi_write(int fd, unsigned short reg, unsigned short* dat)
+{
+	return _libspi_write(fd, reg, dat);
+}
+
+int sxx_libspi_write(int fd, unsigned short reg, unsigned short* dat)
+{
+	return _libspi_write(fd, reg << 1, dat);
 }
 
 
