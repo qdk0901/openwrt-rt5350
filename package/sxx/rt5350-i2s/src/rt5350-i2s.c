@@ -380,7 +380,7 @@ static int mt7620_i2s_dev_probe(struct platform_device *pdev)
 
 	snd_dmaengine_pcm_register(&pdev->dev,
 		&mt7620_dmaengine_pcm_config,
-		SND_DMAENGINE_PCM_FLAG_COMPAT);
+		SND_DMAENGINE_PCM_FLAG_COMPAT | SND_DMAENGINE_PCM_FLAG_NO_RESIDUE);
 
 	i2s = kzalloc(sizeof(*i2s), GFP_KERNEL);
 	if (!i2s)
